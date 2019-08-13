@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -26,19 +27,14 @@ class BookRepository extends ServiceEntityRepository
     // /**
     //  * @return BookList[] Returns an array of BookList objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findLatest($page = 1): Paginator
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $db = $this->createQueryBuilder('b');
+
+        return (new Paginator($db))->paginate($page);
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?BookList

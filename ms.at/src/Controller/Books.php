@@ -54,7 +54,7 @@ class Books extends AbstractController
     public function getList(BookRepository $repository, SerializerInterface $serializer): JsonResponse
     {
         try {
-            $data = $repository->findAll();
+            $data = $repository->findLatest();
             $arData = $serializer->normalize($data);
         } catch (\Throwable $exception) {
             return $this->json(['error' => $exception->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
